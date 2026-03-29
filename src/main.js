@@ -1,4 +1,6 @@
 // ─── Constantes ──────────────────────────────────
+import videoSrc from '../assets/01.mp4'
+
 const WHATSAPP_NUMBER = '573195914270'
 const EVENT_DATE = new Date('2026-08-29T18:00:00')
 
@@ -291,7 +293,32 @@ function initNavButtons() {
 }
 
 // ─── Bootstrap ────────────────────────────────────
+function fitNameToWidth() {
+  const el = document.querySelector('.name')
+  if (!el) return
+  const maxWidth = el.parentElement.offsetWidth * 0.96
+  let lo = 8, hi = 32
+  el.style.fontSize = hi + 'vw'
+  // Búsqueda binaria del tamaño que llena el ancho sin desbordar
+  while (hi - lo > 0.2) {
+    const mid = (lo + hi) / 2
+    el.style.fontSize = mid + 'vw'
+    if (el.scrollWidth <= maxWidth) lo = mid
+    else hi = mid
+  }
+  el.style.fontSize = lo + 'vw'
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  const bgVideo = document.getElementById('bg-video')
+  if (bgVideo) bgVideo.src = videoSrc
+
+  // Ajustar el nombre al ancho cuando cargue la fuente
+  document.fonts.ready.then(() => {
+    fitNameToWidth()
+    window.addEventListener('resize', fitNameToWidth)
+  })
+
   generateStars()
   updateCountdown()
   setInterval(updateCountdown, 1000)
