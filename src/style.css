@@ -679,6 +679,44 @@ body.modal-open {
   margin-bottom: 0.35rem;
 }
 
+.field-required {
+  font-size: 0.68rem;
+  color: var(--beige);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: normal;
+}
+
+.dish-radio-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.dish-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--amarillo);
+  padding: 0.45rem 0.9rem;
+  border: 1px solid rgba(220,175,130,0.4);
+  border-radius: 10px;
+  transition: background 0.15s, border-color 0.15s;
+  user-select: none;
+}
+
+.dish-radio:has(input:checked) {
+  background: rgba(220,175,130,0.2);
+  border-color: var(--beige);
+}
+
+.dish-radio input {
+  accent-color: var(--beige);
+}
+
 .field-optional {
   font-size: 0.68rem;
   color: rgba(250,185,240,0.5);

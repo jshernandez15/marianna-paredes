@@ -4,7 +4,7 @@ import introSrc from '../assets/intro.mp4'
 import musicSrc from '../assets/music.mp3'
 import solSrc from '../assets/sol.svg'
 
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx1CnxJz_6o7hNA4JIM0Y7E_Bd-tuXxpC0qdbH2-c14sIY1bmSuher001yJoFhzUVpAAw/exec'
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwDh_guqdQ8Se0H_NXk_ynGsbpvzlktB9_407r2pQISAvO9nDqpY-KXPpLmyESLGgYF0w/exec'
 const EVENT_DATE = new Date('2026-08-29T18:00:00')
 
 // ─── Parámetro de URL: ?max=N ─────────────────────
@@ -109,6 +109,7 @@ function renderPeopleFields(count) {
     existing[i] = {
       nombre: entry.querySelector('.field-nombre')?.value ?? '',
       doc:    entry.querySelector('.field-doc')?.value ?? '',
+      plato:  entry.querySelector('.field-plato:checked')?.value ?? '',
     }
   })
 
@@ -129,6 +130,19 @@ function renderPeopleFields(count) {
         <input class="field-input field-doc" type="text" id="doc-${i}"
                placeholder="CC 1234567890" autocomplete="off" inputmode="numeric">
       </div>
+      <div class="field-group">
+        <label class="field-label">Plato</label>
+        <div class="dish-radio-group">
+          <label class="dish-radio">
+            <input type="radio" name="plato-${i}" value="valenciana" class="field-plato">
+            🥘 Paella Valenciana
+          </label>
+          <label class="dish-radio">
+            <input type="radio" name="plato-${i}" value="carnes" class="field-plato">
+            🍖 Paella de Carnes
+          </label>
+        </div>
+      </div>
     `
     container.appendChild(div)
 
@@ -136,22 +150,14 @@ function renderPeopleFields(count) {
     if (existing[i]) {
       div.querySelector('.field-nombre').value = existing[i].nombre
       div.querySelector('.field-doc').value    = existing[i].doc
+      if (existing[i].plato) {
+        const radio = div.querySelector(`.field-plato[value="${existing[i].plato}"]`)
+        if (radio) radio.checked = true
+      }
     }
   }
 }
 
-function capDishQuantities(limit) {
-  let total = quantities.valenciana + quantities.carnes
-  if (total <= limit) return
-  // Reducir proporcionalmente empezando por carnes
-  const excess = total - limit
-  const reduceCarnes = Math.min(quantities.carnes, excess)
-  quantities.carnes -= reduceCarnes
-  const remaining = excess - reduceCarnes
-  quantities.valenciana -= remaining
-  updateQtyDisplay('valenciana')
-  updateQtyDisplay('carnes')
-}
 
 function initPeopleStepper() {
   const countEl  = document.getElementById('count-people')
@@ -181,44 +187,9 @@ function initPeopleStepper() {
         peopleCount--
         if (countEl) countEl.textContent = peopleCount
         renderPeopleFields(peopleCount)
-        capDishQuantities(peopleCount)
       }
     })
   }
-}
-
-// ─── Platos ───────────────────────────────────────
-const quantities = { valenciana: 0, carnes: 0 }
-
-function updateQtyDisplay(dish) {
-  const el = document.getElementById(`qty-${dish}`)
-  if (el) el.textContent = quantities[dish]
-}
-
-function bindQtyControls() {
-  const dishes = ['valenciana', 'carnes']
-  dishes.forEach(dish => {
-    const incBtn = document.getElementById(`inc-${dish}`)
-    const decBtn = document.getElementById(`dec-${dish}`)
-
-    if (incBtn) {
-      incBtn.addEventListener('click', () => {
-        if (quantities.valenciana + quantities.carnes < peopleCount) {
-          quantities[dish]++
-          updateQtyDisplay(dish)
-          hideError()
-        }
-      })
-    }
-    if (decBtn) {
-      decBtn.addEventListener('click', () => {
-        if (quantities[dish] > 0) {
-          quantities[dish]--
-          updateQtyDisplay(dish)
-        }
-      })
-    }
-  })
 }
 
 // ─── Validación y envío ───────────────────────────
@@ -228,13 +199,12 @@ function buildData() {
     asistentes.push({
       nombre:    document.getElementById(`nombre-${i}`)?.value.trim() ?? '',
       documento: document.getElementById(`doc-${i}`)?.value.trim() ?? '',
+      plato:     document.querySelector(`input[name="plato-${i}"]:checked`)?.value ?? '',
     })
   }
   return {
     asistentes,
-    vehiculo:   document.getElementById('field-placa')?.value.trim().toUpperCase() || '',
-    valenciana: quantities.valenciana,
-    carnes:     quantities.carnes,
+    vehiculo: document.getElementById('field-placa')?.value.trim().toUpperCase() || '',
   }
 }
 
@@ -290,10 +260,12 @@ function initConfirmButton() {
       }
     }
 
-    // Validar al menos un plato
-    if (quantities.valenciana + quantities.carnes === 0) {
-      showError('Selecciona al menos un plato.')
-      return
+    // Validar plato por persona
+    for (let i = 0; i < peopleCount; i++) {
+      if (!document.querySelector(`input[name="plato-${i}"]:checked`)) {
+        showError(`Selecciona el plato para la Persona ${i + 1}.`)
+        return
+      }
     }
 
     hideError()
@@ -393,6 +365,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals()
   initNavButtons()
   initPeopleStepper()
-  bindQtyControls()
   initConfirmButton()
 })

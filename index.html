@@ -159,41 +159,11 @@
       <!-- Placa del vehículo -->
       <div class="field-group">
         <label class="field-label" for="field-placa">
-          Placa del vehículo <span class="field-optional">(opcional)</span>
+          Placa del vehículo <span class="field-required">requerido para acceso a Cantón Norte</span>
         </label>
         <input class="field-input" type="text" id="field-placa"
                placeholder="ABC 123" maxlength="10" autocomplete="off"
                style="text-transform: uppercase;">
-      </div>
-
-      <!-- Divisor -->
-      <div class="flower-divider small" aria-hidden="true">✿ ✿ ✿</div>
-
-      <!-- Selección de platos -->
-      <p class="plato-intro">Selección del plato de tu preferencia</p>
-
-      <div class="dish-row">
-        <div class="dish-info">
-          <span class="dish-emoji" aria-hidden="true">🥘</span>
-          <p class="dish-name">Paella Valenciana</p>
-        </div>
-        <div class="qty-control" role="group" aria-label="Cantidad Paella Valenciana">
-          <button class="qty-btn" id="dec-valenciana" aria-label="Disminuir">−</button>
-          <span class="qty-value" id="qty-valenciana" aria-live="polite">0</span>
-          <button class="qty-btn" id="inc-valenciana" aria-label="Aumentar">+</button>
-        </div>
-      </div>
-
-      <div class="dish-row">
-        <div class="dish-info">
-          <span class="dish-emoji" aria-hidden="true">🍖</span>
-          <p class="dish-name">Paella de Carnes</p>
-        </div>
-        <div class="qty-control" role="group" aria-label="Cantidad Paella de Carnes">
-          <button class="qty-btn" id="dec-carnes" aria-label="Disminuir">−</button>
-          <span class="qty-value" id="qty-carnes" aria-live="polite">0</span>
-          <button class="qty-btn" id="inc-carnes" aria-label="Aumentar">+</button>
-        </div>
       </div>
 
       <p class="plato-error" id="plato-error" role="alert" style="display:none"></p>
