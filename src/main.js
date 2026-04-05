@@ -4,7 +4,7 @@ import introSrc from '../assets/intro.mp4'
 import musicSrc from '../assets/music.mp3'
 import solSrc from '../assets/sol.svg'
 
-const WHATSAPP_NUMBER = '573195914270'
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx1CnxJz_6o7hNA4JIM0Y7E_Bd-tuXxpC0qdbH2-c14sIY1bmSuher001yJoFhzUVpAAw/exec'
 const EVENT_DATE = new Date('2026-08-29T18:00:00')
 
 // ─── Parámetro de URL: ?max=N ─────────────────────
@@ -222,6 +222,46 @@ function bindQtyControls() {
 }
 
 // ─── Validación y envío ───────────────────────────
+function buildData() {
+  const asistentes = []
+  for (let i = 0; i < peopleCount; i++) {
+    asistentes.push({
+      nombre:    document.getElementById(`nombre-${i}`)?.value.trim() ?? '',
+      documento: document.getElementById(`doc-${i}`)?.value.trim() ?? '',
+    })
+  }
+  return {
+    asistentes,
+    vehiculo:   document.getElementById('field-placa')?.value.trim().toUpperCase() || '',
+    valenciana: quantities.valenciana,
+    carnes:     quantities.carnes,
+  }
+}
+
+async function submitToSheets(data) {
+  const btn = document.getElementById('btn-confirm-plato')
+  btn.disabled = true
+  btn.textContent = 'Enviando…'
+  console.log('[Sheets] Enviando datos:', data)
+  try {
+    const res = await fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(data),
+    })
+    // no-cors → res.type === 'opaque', no podemos leer status ni body
+    console.log('[Sheets] Fetch completado. Tipo de respuesta:', res.type, '| status:', res.status)
+    btn.textContent = '✓ ¡Asistencia confirmada!'
+    btn.style.background = 'rgba(60,140,70,0.9)'
+  } catch (err) {
+    console.error('[Sheets] Error en fetch:', err)
+    btn.disabled = false
+    btn.textContent = 'Confirmar Asistencia'
+    showError('Error al enviar. Intenta de nuevo.')
+  }
+}
+
 function showError(msg) {
   const el = document.getElementById('plato-error')
   if (!el) return
@@ -232,31 +272,6 @@ function showError(msg) {
 function hideError() {
   const el = document.getElementById('plato-error')
   if (el) el.style.display = 'none'
-}
-
-function buildMessage() {
-  const lines = ['Confirmo mi asistencia a la fiesta de Marianna.', '']
-
-  lines.push('Asistentes:')
-  for (let i = 0; i < peopleCount; i++) {
-    const nombre = document.getElementById(`nombre-${i}`)?.value.trim() ?? ''
-    const doc    = document.getElementById(`doc-${i}`)?.value.trim() ?? ''
-    lines.push(`${i + 1}. ${nombre} - ${doc}`)
-  }
-
-  const placa = document.getElementById('field-placa')?.value.trim().toUpperCase()
-  if (placa) {
-    lines.push('')
-    lines.push(`Vehículo: ${placa}`)
-  }
-
-  lines.push('')
-  const parts = []
-  if (quantities.valenciana > 0) parts.push(`${quantities.valenciana} Paella Valenciana`)
-  if (quantities.carnes > 0)     parts.push(`${quantities.carnes} Paella de Carnes`)
-  lines.push(`Platos: ${parts.join(' y ')}`)
-
-  return lines.join('\n')
 }
 
 function initConfirmButton() {
@@ -282,8 +297,7 @@ function initConfirmButton() {
     }
 
     hideError()
-    const msg = encodeURIComponent(buildMessage())
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank')
+    submitToSheets(buildData())
   })
 }
 
