@@ -36,8 +36,8 @@ body {
   color: #fff;
 }
 
-/* ─── Vídeo de fondo ────────────────────────────── */
-#bg-video {
+/* ─── Imagen de fondo ───────────────────────────── */
+#bg-image {
   position: fixed;
   inset: 0;
   width: 100%;
@@ -51,6 +51,39 @@ body {
   inset: 0;
   background: rgba(12, 2, 28, 0.62);
   z-index: -1;
+}
+
+/* ─── Pantalla intro ────────────────────────────── */
+#intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#intro-video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#intro-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.08em;
+  pointer-events: none;
 }
 
 body.modal-open {
@@ -101,6 +134,9 @@ body.modal-open {
 .lantern {
   position: absolute;
   bottom: -80px;
+  height: auto;
+  aspect-ratio: 60 / 115;
+  filter: drop-shadow(0 0 8px rgba(255,210,60,0.85)) drop-shadow(0 0 22px rgba(255,160,20,0.5));
   animation: float-up linear infinite;
   filter: drop-shadow(0 0 8px rgba(255,220,100,0.6));
 }
@@ -144,11 +180,8 @@ body.modal-open {
 
 .name {
   font-family: 'Parisienne', cursive;
-  font-size: 15vw; /* ajustado dinámicamente por JS */
-  color: var(--dorado);
-  text-shadow:
-    0 0 35px rgba(255,220,100,0.7),
-    0 3px 10px rgba(0,0,0,0.55);
+  font-size: 15vw;
+  color: var(--amarillo);
   letter-spacing: 0.01em;
   line-height: 1.1;
   white-space: nowrap;
@@ -159,21 +192,54 @@ body.modal-open {
   margin-bottom: 0;
 }
 
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .name {
+    background-image:
+      radial-gradient(circle, #ffffff 1px, transparent 1px),
+      radial-gradient(circle, #FFEB8C 2px, transparent 2px),
+      radial-gradient(circle, #FFD700 1px, transparent 1px),
+      radial-gradient(circle, #ffffff 2px, transparent 2px),
+      radial-gradient(circle, #FFF8DC 1px, transparent 1px),
+      radial-gradient(circle, #FFDC64 1px, transparent 1px),
+      radial-gradient(circle, #ffffff 2px, transparent 2px),
+      radial-gradient(circle, #FFC200 1px, transparent 1px),
+      radial-gradient(circle, #FFEB8C 2px, transparent 2px),
+      radial-gradient(circle, #FFF0A0 1px, transparent 1px),
+      radial-gradient(circle, #ffffff 1px, transparent 1px),
+      radial-gradient(circle, #FFD700 2px, transparent 2px);
+    background-size:
+      13px 13px, 17px 17px, 11px 11px, 23px 23px,
+      19px 19px,  7px  7px, 29px 29px, 15px 15px,
+      21px 21px,  9px  9px, 31px 31px, 25px 25px;
+    background-color: #FFDC64;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 18px rgba(255,220,100,0.65));
+    animation: glitter 1.4s steps(1) infinite;
+  }
+}
+
+@keyframes glitter {
+  0%  { background-position: 0 0,    0 0,    0 0,    0 0,    0 0,    0 0,    0 0,    0 0,    0 0,    0 0,    0 0,    0 0;    }
+  8%  { background-position: 3px 5px, 7px 2px, 4px 8px, 1px 6px, 9px 3px, 5px 1px, 2px 7px, 8px 4px, 6px 9px, 3px 2px, 7px 5px, 1px 8px; }
+  17% { background-position: 8px 1px, 2px 9px, 7px 3px, 5px 2px, 1px 7px, 9px 4px, 6px 2px, 3px 8px, 1px 4px, 8px 6px, 4px 1px, 6px 3px; }
+  25% { background-position: 5px 7px, 4px 1px, 2px 6px, 8px 4px, 6px 1px, 3px 8px, 9px 5px, 1px 3px, 7px 2px, 5px 9px, 2px 7px, 9px 1px; }
+  33% { background-position: 1px 4px, 9px 6px, 5px 1px, 3px 9px, 7px 5px, 2px 3px, 4px 9px, 6px 7px, 9px 1px, 2px 4px, 8px 9px, 4px 6px; }
+  42% { background-position: 7px 9px, 1px 4px, 9px 7px, 6px 1px, 3px 8px, 8px 6px, 1px 4px, 9px 2px, 4px 7px, 6px 1px, 3px 4px, 7px 9px; }
+  50% { background-position: 4px 2px, 6px 8px, 1px 4px, 9px 7px, 2px 5px, 7px 1px, 5px 8px, 2px 5px, 8px 3px, 1px 7px, 6px 2px, 3px 5px; }
+  58% { background-position: 9px 5px, 3px 7px, 6px 9px, 2px 3px, 8px 7px, 4px 9px, 7px 3px, 5px 1px, 2px 8px, 9px 5px, 1px 3px, 8px 7px; }
+  67% { background-position: 2px 8px, 8px 3px, 3px 5px, 7px 8px, 4px 2px, 1px 6px, 8px 1px, 4px 9px, 5px 6px, 7px 3px, 9px 8px, 2px 4px; }
+  75% { background-position: 6px 3px, 5px 9px, 8px 2px, 4px 5px, 9px 8px, 6px 7px, 3px 6px, 7px 8px, 3px 9px, 4px 8px, 5px 6px, 6px 2px; }
+  83% { background-position: 3px 6px, 1px 5px, 4px 7px, 8px 1px, 5px 4px, 9px 2px, 2px 8px, 6px 4px, 7px 5px, 3px 9px, 7px 4px, 5px 8px; }
+  92% { background-position: 8px 4px, 7px 1px, 1px 9px, 6px 7px, 2px 6px, 5px 3px, 6px 5px, 3px 6px, 1px 2px, 6px 7px, 2px 9px, 1px 3px; }
+}
+
 .xv-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2.5px solid var(--dorado);
-  border-radius: 50%;
-  width: 112px;
-  height: 112px;
-  background: rgba(12, 3, 28, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   margin: 0.5rem auto 0;
-  box-shadow:
-    0 0 28px rgba(255,220,100,0.28),
-    inset 0 0 20px rgba(255,220,100,0.06);
 }
 
 .xv-inner {
@@ -362,7 +428,7 @@ body.modal-open {
   right: 0;
   height: var(--nav-height);
   background: linear-gradient(135deg, rgba(26,5,48,0.97) 0%, rgba(44,10,62,0.97) 100%);
-  border-top: 1px solid rgba(240,130,210,0.35);
+
   display: flex;
   align-items: center;
   justify-content: center;

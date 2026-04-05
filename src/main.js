@@ -1,5 +1,8 @@
 // ─── Constantes ──────────────────────────────────
-import videoSrc from '../assets/01.mp4'
+import bgSrc from '../assets/bg.jpeg'
+import introSrc from '../assets/intro.mp4'
+import musicSrc from '../assets/music.mp3'
+import solSrc from '../assets/sol.svg'
 
 const WHATSAPP_NUMBER = '573195914270'
 const EVENT_DATE = new Date('2026-08-29T18:00:00')
@@ -292,32 +295,82 @@ function initNavButtons() {
   }
 }
 
+// ─── Faroles ──────────────────────────────────────
+function initLanterns(solHref) {
+  const container = document.querySelector('.lanterns-container')
+  if (!container) return
+
+  container.innerHTML = [1, 2, 3, 4, 5, 6].map(i => `
+    <svg class="lantern lantern-${i}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 115">
+      <defs>
+        <radialGradient id="lg${i}" cx="50%" cy="42%" r="56%">
+          <stop offset="0%"   stop-color="#fffde0" stop-opacity="0.92"/>
+          <stop offset="55%"  stop-color="#ffd700" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#e06000" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- Hilo superior -->
+      <line x1="30" y1="0" x2="30" y2="11" stroke="#C9922A" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Tapa superior exterior -->
+      <rect x="9" y="10" width="42" height="8" rx="4" fill="#C9922A"/>
+      <!-- Tapa superior interior -->
+      <rect x="15" y="17" width="30" height="6" rx="2" fill="#A87020"/>
+      <!-- Cuerpo de cristal -->
+      <rect x="7" y="22" width="46" height="54" rx="7" fill="#FFD740" fill-opacity="0.28" stroke="#C9922A" stroke-width="1.3"/>
+      <!-- Sol central -->
+      <image href="${solHref}" x="11" y="26" width="38" height="38" preserveAspectRatio="xMidYMid meet"/>
+      <!-- Brillo interior (glow) -->
+      <rect x="7" y="22" width="46" height="54" rx="7" fill="url(#lg${i})"/>
+      <!-- Reflejo lateral del cristal -->
+      <rect x="11" y="27" width="5" height="24" rx="2.5" fill="white" fill-opacity="0.18"/>
+      <!-- Tapa inferior interior -->
+      <rect x="15" y="75" width="30" height="6" rx="2" fill="#A87020"/>
+      <!-- Tapa inferior exterior -->
+      <rect x="9" y="80" width="42" height="8" rx="4" fill="#C9922A"/>
+      <!-- Hilo inferior -->
+      <line x1="30" y1="88" x2="30" y2="100" stroke="#C9922A" stroke-width="1.2" stroke-linecap="round"/>
+      <!-- Borla exterior -->
+      <circle cx="30" cy="104" r="5" fill="#C9922A"/>
+      <!-- Borla interior -->
+      <circle cx="30" cy="104" r="3" fill="#FFD740"/>
+      <!-- Brillo de borla -->
+      <circle cx="28.5" cy="102.5" r="1" fill="white" fill-opacity="0.5"/>
+    </svg>
+  `).join('')
+}
+
 // ─── Bootstrap ────────────────────────────────────
-function fitNameToWidth() {
-  const el = document.querySelector('.name')
-  if (!el) return
-  const maxWidth = el.parentElement.offsetWidth * 0.96
-  let lo = 8, hi = 32
-  el.style.fontSize = hi + 'vw'
-  // Búsqueda binaria del tamaño que llena el ancho sin desbordar
-  while (hi - lo > 0.2) {
-    const mid = (lo + hi) / 2
-    el.style.fontSize = mid + 'vw'
-    if (el.scrollWidth <= maxWidth) lo = mid
-    else hi = mid
-  }
-  el.style.fontSize = lo + 'vw'
+function initIntroScreen() {
+  const screen = document.getElementById('intro-screen')
+  const video  = document.getElementById('intro-video')
+  const audio  = document.getElementById('intro-audio')
+  const hint   = document.getElementById('intro-hint')
+  if (!screen || !video || !audio) return
+
+  video.src = introSrc
+  audio.src = musicSrc
+
+  screen.addEventListener('click', () => {
+    if (hint) hint.style.display = 'none'
+    video.play()
+    audio.play()
+  }, { once: true })
+
+  video.addEventListener('ended', () => {
+    screen.style.opacity = '0'
+    screen.addEventListener('transitionend', () => {
+      screen.style.display = 'none'
+    }, { once: true })
+  })
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const bgVideo = document.getElementById('bg-video')
-  if (bgVideo) bgVideo.src = videoSrc
+  const bgImg = document.getElementById('bg-image')
+  if (bgImg) bgImg.src = bgSrc
 
-  // Ajustar el nombre al ancho cuando cargue la fuente
-  document.fonts.ready.then(() => {
-    fitNameToWidth()
-    window.addEventListener('resize', fitNameToWidth)
-  })
+  initLanterns(solSrc)
+
+  initIntroScreen()
 
   generateStars()
   updateCountdown()

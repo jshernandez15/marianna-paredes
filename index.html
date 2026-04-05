@@ -12,231 +12,23 @@
 </head>
 <body>
 
-  <!-- ── VÍDEO DE FONDO ── -->
-  <video id="bg-video" autoplay muted loop playsinline aria-hidden="true"></video>
+  <!-- ── PANTALLA INTRO ── -->
+  <div id="intro-screen">
+    <video id="intro-video" playsinline></video>
+    <audio id="intro-audio"></audio>
+    <p id="intro-hint">Toca para reproducir</p>
+  </div>
+
+  <!-- ── IMAGEN DE FONDO ── -->
+  <img id="bg-image" aria-hidden="true" alt="" />
   <div class="video-overlay"></div>
 
   <!-- ── CAPA DE RESPLANDOR ── -->
   <div class="bg-gradient"></div>
   <div class="stars-container"></div>
 
-  <!-- ── FAROLES FLOTANTES (×6, amarillos) ── -->
-  <div class="lanterns-container" aria-hidden="true">
-    <!-- Farol 1 -->
-    <svg class="lantern lantern-1" viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="25" y1="0" x2="25" y2="10" stroke="#DCAF82" stroke-width="1.5"/>
-      <rect x="6" y="8" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <rect x="8" y="14" width="34" height="46" rx="8" fill="#FFDC64" stroke="#DCAF82" stroke-width="1.2"/>
-      <rect x="12" y="18" width="26" height="38" rx="6" fill="#FFEB8C" opacity="0.65"/>
-      <!-- Sol boho Corona: 8 pétalos -->
-      <g fill="#b8890a" opacity="0.9">
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(0 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(45 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(90 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(135 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(180 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(225 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(270 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(315 25 37)"/>
-      </g>
-      <!-- Puntos boho entre pétalos -->
-      <g fill="#DCAF82" opacity="0.8">
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(22.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(67.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(112.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(157.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(202.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(247.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(292.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(337.5 25 37)"/>
-      </g>
-      <!-- Círculo central -->
-      <circle cx="25" cy="37" r="5" fill="#DCAF82"/>
-      <circle cx="25" cy="37" r="3" fill="#FFEB8C"/>
-      <circle cx="23.5" cy="35.5" r="1" fill="#fff" opacity="0.5"/>
-      <!-- Línea divisora -->
-      <line x1="10" y1="55" x2="40" y2="55" stroke="#DCAF82" stroke-width="0.8" opacity="0.4"/>
-      <rect x="6" y="58" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <line x1="25" y1="66" x2="25" y2="78" stroke="#DCAF82" stroke-width="1.5"/>
-      <circle cx="25" cy="81" r="3.5" fill="#DCAF82"/>
-      <circle cx="25" cy="81" r="1.8" fill="#FFDC64"/>
-    </svg>
-    <!-- Farol 2 -->
-    <svg class="lantern lantern-2" viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="25" y1="0" x2="25" y2="10" stroke="#DCAF82" stroke-width="1.5"/>
-      <rect x="6" y="8" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <rect x="8" y="14" width="34" height="46" rx="8" fill="#FFDC64" stroke="#DCAF82" stroke-width="1.2"/>
-      <rect x="12" y="18" width="26" height="38" rx="6" fill="#FFEB8C" opacity="0.65"/>
-      <g fill="#b8890a" opacity="0.9">
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(0 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(45 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(90 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(135 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(180 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(225 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(270 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(315 25 37)"/>
-      </g>
-      <g fill="#DCAF82" opacity="0.8">
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(22.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(67.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(112.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(157.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(202.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(247.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(292.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(337.5 25 37)"/>
-      </g>
-      <circle cx="25" cy="37" r="5" fill="#DCAF82"/>
-      <circle cx="25" cy="37" r="3" fill="#FFEB8C"/>
-      <circle cx="23.5" cy="35.5" r="1" fill="#fff" opacity="0.5"/>
-      <line x1="10" y1="55" x2="40" y2="55" stroke="#DCAF82" stroke-width="0.8" opacity="0.4"/>
-      <rect x="6" y="58" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <line x1="25" y1="66" x2="25" y2="78" stroke="#DCAF82" stroke-width="1.5"/>
-      <circle cx="25" cy="81" r="3.5" fill="#DCAF82"/>
-      <circle cx="25" cy="81" r="1.8" fill="#FFDC64"/>
-    </svg>
-    <!-- Farol 3 -->
-    <svg class="lantern lantern-3" viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="25" y1="0" x2="25" y2="10" stroke="#DCAF82" stroke-width="1.5"/>
-      <rect x="6" y="8" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <rect x="8" y="14" width="34" height="46" rx="8" fill="#FFDC64" stroke="#DCAF82" stroke-width="1.2"/>
-      <rect x="12" y="18" width="26" height="38" rx="6" fill="#FFEB8C" opacity="0.65"/>
-      <g fill="#b8890a" opacity="0.9">
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(0 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(45 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(90 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(135 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(180 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(225 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(270 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(315 25 37)"/>
-      </g>
-      <g fill="#DCAF82" opacity="0.8">
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(22.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(67.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(112.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(157.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(202.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(247.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(292.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(337.5 25 37)"/>
-      </g>
-      <circle cx="25" cy="37" r="5" fill="#DCAF82"/>
-      <circle cx="25" cy="37" r="3" fill="#FFEB8C"/>
-      <circle cx="23.5" cy="35.5" r="1" fill="#fff" opacity="0.5"/>
-      <line x1="10" y1="55" x2="40" y2="55" stroke="#DCAF82" stroke-width="0.8" opacity="0.4"/>
-      <rect x="6" y="58" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <line x1="25" y1="66" x2="25" y2="78" stroke="#DCAF82" stroke-width="1.5"/>
-      <circle cx="25" cy="81" r="3.5" fill="#DCAF82"/>
-      <circle cx="25" cy="81" r="1.8" fill="#FFDC64"/>
-    </svg>
-    <!-- Farol 4 -->
-    <svg class="lantern lantern-4" viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="25" y1="0" x2="25" y2="10" stroke="#DCAF82" stroke-width="1.5"/>
-      <rect x="6" y="8" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <rect x="8" y="14" width="34" height="46" rx="8" fill="#FFDC64" stroke="#DCAF82" stroke-width="1.2"/>
-      <rect x="12" y="18" width="26" height="38" rx="6" fill="#FFEB8C" opacity="0.65"/>
-      <g fill="#b8890a" opacity="0.9">
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(0 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(45 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(90 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(135 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(180 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(225 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(270 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(315 25 37)"/>
-      </g>
-      <g fill="#DCAF82" opacity="0.8">
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(22.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(67.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(112.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(157.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(202.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(247.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(292.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(337.5 25 37)"/>
-      </g>
-      <circle cx="25" cy="37" r="5" fill="#DCAF82"/>
-      <circle cx="25" cy="37" r="3" fill="#FFEB8C"/>
-      <circle cx="23.5" cy="35.5" r="1" fill="#fff" opacity="0.5"/>
-      <line x1="10" y1="55" x2="40" y2="55" stroke="#DCAF82" stroke-width="0.8" opacity="0.4"/>
-      <rect x="6" y="58" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <line x1="25" y1="66" x2="25" y2="78" stroke="#DCAF82" stroke-width="1.5"/>
-      <circle cx="25" cy="81" r="3.5" fill="#DCAF82"/>
-      <circle cx="25" cy="81" r="1.8" fill="#FFDC64"/>
-    </svg>
-    <!-- Farol 5 -->
-    <svg class="lantern lantern-5" viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="25" y1="0" x2="25" y2="10" stroke="#DCAF82" stroke-width="1.5"/>
-      <rect x="6" y="8" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <rect x="8" y="14" width="34" height="46" rx="8" fill="#FFDC64" stroke="#DCAF82" stroke-width="1.2"/>
-      <rect x="12" y="18" width="26" height="38" rx="6" fill="#FFEB8C" opacity="0.65"/>
-      <g fill="#b8890a" opacity="0.9">
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(0 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(45 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(90 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(135 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(180 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(225 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(270 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(315 25 37)"/>
-      </g>
-      <g fill="#DCAF82" opacity="0.8">
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(22.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(67.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(112.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(157.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(202.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(247.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(292.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(337.5 25 37)"/>
-      </g>
-      <circle cx="25" cy="37" r="5" fill="#DCAF82"/>
-      <circle cx="25" cy="37" r="3" fill="#FFEB8C"/>
-      <circle cx="23.5" cy="35.5" r="1" fill="#fff" opacity="0.5"/>
-      <line x1="10" y1="55" x2="40" y2="55" stroke="#DCAF82" stroke-width="0.8" opacity="0.4"/>
-      <rect x="6" y="58" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <line x1="25" y1="66" x2="25" y2="78" stroke="#DCAF82" stroke-width="1.5"/>
-      <circle cx="25" cy="81" r="3.5" fill="#DCAF82"/>
-      <circle cx="25" cy="81" r="1.8" fill="#FFDC64"/>
-    </svg>
-    <!-- Farol 6 -->
-    <svg class="lantern lantern-6" viewBox="0 0 50 90" xmlns="http://www.w3.org/2000/svg">
-      <line x1="25" y1="0" x2="25" y2="10" stroke="#DCAF82" stroke-width="1.5"/>
-      <rect x="6" y="8" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <rect x="8" y="14" width="34" height="46" rx="8" fill="#FFDC64" stroke="#DCAF82" stroke-width="1.2"/>
-      <rect x="12" y="18" width="26" height="38" rx="6" fill="#FFEB8C" opacity="0.65"/>
-      <g fill="#b8890a" opacity="0.9">
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(0 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(45 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(90 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(135 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(180 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(225 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(270 25 37)"/>
-        <ellipse cx="25" cy="28" rx="3" ry="7" transform="rotate(315 25 37)"/>
-      </g>
-      <g fill="#DCAF82" opacity="0.8">
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(22.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(67.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(112.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(157.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(202.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(247.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(292.5 25 37)"/>
-        <circle cx="25" cy="27.5" r="1.2" transform="rotate(337.5 25 37)"/>
-      </g>
-      <circle cx="25" cy="37" r="5" fill="#DCAF82"/>
-      <circle cx="25" cy="37" r="3" fill="#FFEB8C"/>
-      <circle cx="23.5" cy="35.5" r="1" fill="#fff" opacity="0.5"/>
-      <line x1="10" y1="55" x2="40" y2="55" stroke="#DCAF82" stroke-width="0.8" opacity="0.4"/>
-      <rect x="6" y="58" width="38" height="8" rx="4" fill="#DCAF82"/>
-      <line x1="25" y1="66" x2="25" y2="78" stroke="#DCAF82" stroke-width="1.5"/>
-      <circle cx="25" cy="81" r="3.5" fill="#DCAF82"/>
-      <circle cx="25" cy="81" r="1.8" fill="#FFDC64"/>
-    </svg>
-  </div>
+  <!-- ── FAROLES FLOTANTES (×6) ── -->
+  <div class="lanterns-container" aria-hidden="true"></div>
 
   <!-- ── CONTENIDO PRINCIPAL ── -->
   <main class="invitation-card">
@@ -290,11 +82,12 @@
       <div class="dresscode-note">
         <p class="dresscode-sub">Se reservan los colores</p>
         <div class="palette-swatches">
-          <div class="palette-swatch" style="background:#F082D2;" title="Rosa Fuerte"></div>
-          <div class="palette-swatch" style="background:#FAB9F0;" title="Rosa Claro"></div>
-          <div class="palette-swatch" style="background:#DCAF82;" title="Beige"></div>
-          <div class="palette-swatch" style="background:#FFDC64;" title="Dorado"></div>
-          <div class="palette-swatch" style="background:#FFEB8C;" title="Amarillo Pálido"></div>
+          <div class="palette-swatch" style="background:#945BB2;" title="#945BB2"></div>
+          <div class="palette-swatch" style="background:#AA75C4;" title="#AA75C4"></div>
+          <div class="palette-swatch" style="background:#B281C7;" title="#B281C7"></div>
+          <div class="palette-swatch" style="background:#B99DD8;" title="#B99DD8"></div>
+          <div class="palette-swatch" style="background:#CCABEC;" title="#CCABEC"></div>
+          <div class="palette-swatch" style="background:#DCB5E9;" title="#DCB5E9"></div>
         </div>
         <p class="reserved-sub">exclusivos para la quinceañera</p>
       </div>
@@ -377,7 +170,7 @@
       <div class="flower-divider small" aria-hidden="true">✿ ✿ ✿</div>
 
       <!-- Selección de platos -->
-      <p class="plato-intro">Selección de platos para tu familia</p>
+      <p class="plato-intro">Selección del plato de tu preferencia</p>
 
       <div class="dish-row">
         <div class="dish-info">
