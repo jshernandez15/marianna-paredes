@@ -1,0 +1,19 @@
+src/main.js
+  s_4a6d7880607c1a::t_6504952fe4968a 164-166
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "81359586d199795d5ead07ddc32e9da0318f5aee",
+  "prompts": {},
+  "sessions": {
+    "s_4a6d7880607c1a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e0222f10-024f-4fc3-ab7c-7dcc8407357c",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jshrenandez15 <js.hernandez15@uniandes.edu.co>"
+    }
+  }
+}
