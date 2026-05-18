@@ -7,13 +7,6 @@ import solSrc from '../assets/sol.svg'
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwDh_guqdQ8Se0H_NXk_ynGsbpvzlktB9_407r2pQISAvO9nDqpY-KXPpLmyESLGgYF0w/exec'
 const EVENT_DATE = new Date('2026-08-29T18:00:00')
 
-// ─── Parámetro de URL: ?max=N ─────────────────────
-function getMaxPeople() {
-  const params = new URLSearchParams(window.location.search)
-  const val = parseInt(params.get('max'), 10)
-  return (Number.isFinite(val) && val >= 1) ? val : 2
-}
-
 // ─── Estrellas ────────────────────────────────────
 function generateStars(count = 40) {
   const container = document.querySelector('.stars-container')
@@ -97,7 +90,6 @@ function initModals() {
 
 // ─── Personas ────────────────────────────────────
 let peopleCount = 1
-const maxPeople = getMaxPeople()
 
 function renderPeopleFields(count) {
   const container = document.getElementById('people-fields')
@@ -165,19 +157,13 @@ function initPeopleStepper() {
   const incBtn   = document.getElementById('inc-people')
   const decBtn   = document.getElementById('dec-people')
 
-  if (noteEl) {
-    noteEl.textContent = `Máximo ${maxPeople} persona${maxPeople !== 1 ? 's' : ''} por invitación`
-  }
-
   renderPeopleFields(peopleCount)
 
   if (incBtn) {
     incBtn.addEventListener('click', () => {
-      if (peopleCount < maxPeople) {
-        peopleCount++
-        if (countEl) countEl.textContent = peopleCount
-        renderPeopleFields(peopleCount)
-      }
+      peopleCount++
+      if (countEl) countEl.textContent = peopleCount
+      renderPeopleFields(peopleCount)
     })
   }
 
